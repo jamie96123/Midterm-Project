@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1222">
+  <title>TypeRush — 節奏英打測速挑戰機</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="TypeRush 首頁"><span class="brand-icon">T<span>↗</span></span><strong>TypeRush<span class="brand-dot">.</span></strong><span class="tag">STM32 EDITION</span></a>
+      <div class="top-actions"><span class="connection-badge" id="connectionBadge"><i></i>練習模式</span><button class="icon-button" id="helpButton" aria-label="操作說明">?</button></div>
+    </header>
+    <main>
+      <div class="intro"><div><p class="eyebrow">FIND YOUR FLOW. FEEL THE RHYTHM.</p><h1>讓每一次敲擊，都<span>踩在節奏上。</span></h1><p class="subtitle">專注眼前的單字，跟上三色光影，挑戰你的英打極限。</p></div><button class="outline-button" id="settingsButton"><span aria-hidden="true">⚙</span> 開發板連線設定</button></div>
+      <div class="workspace">
+        <section class="arena" aria-label="打字遊戲">
+          <div class="arena-head"><div class="mode-label"><span class="live-dot"></span><span id="modeLabel">自由練習</span><span class="mode-note" id="modeNote">無需連接開發板</span></div><span class="round-label">ROUND <strong id="round">01</strong><span> / 10</span></span></div>
+          <div class="arena-body" id="arenaBody" data-color="blue">
+            <div class="status-line"><span id="stateLabel">準備好，進入心流</span><span class="rate-chip" id="rateLabel">舒適 · 8 秒</span></div>
+            <div class="time-row"><span>本題剩餘時間</span><strong id="time">8.00<span>s</span></strong></div>
+            <div class="time-track"><div id="timeBar"></div></div>
+            <div class="word-area"><p class="word-caption" id="wordCaption">按下開始，點亮你的第一個單字</p><div class="target-word" id="targetWord" aria-label="目標單字">ready<span class="caret">_</span></div><p class="feedback" id="feedback" role="status">10 個單字，一場屬於你的節奏挑戰。</p></div>
+            <label class="typing-label" for="typingInput">英文字母輸入</label><div class="typing-box"><span aria-hidden="true">⌨</span><input id="typingInput" type="text" placeholder="開始後，在這裡輸入單字…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" disabled aria-describedby="inputHint"><span class="input-dot"></span></div>
+            <p class="input-hint" id="inputHint">逐字比對・錯字不前進・不用按 Enter</p>
+            <div class="game-controls"><button class="primary-button" id="startButton"><span aria-hidden="true">▶</span> 開始挑戰</button><button class="outline-button" id="pauseButton" disabled>Ⅱ 暫停</button><button class="text-button" id="resetButton">↻ 重設</button></div>
+          </div>
+          <div class="score-legend"><span><i class="dot green"></i><strong>+7</strong> 剩餘 &gt;60%</span><span><i class="dot yellow"></i><strong>+5</strong> 剩餘 30–60%</span><span><i class="dot red"></i><strong>+3</strong> 剩餘 &lt;30%</span></div>
+        </section>
+        <aside class="dashboard" aria-label="即時戰況">
+          <section class="stats-card"><h2>即時戰況 <span>LIVE STATS</span></h2><div class="big-score"><span id="score">0</span><small>總分 / 70</small></div><div class="stat-grid"><div><span>打字速度</span><strong id="wpm">0<small> WPM</small></strong></div><div><span>正確率</span><strong id="accuracy">—<small> %</small></strong></div><div><span>完成單字</span><strong id="correct">0<small> / 10</small></strong></div><div><span>錯誤 / 逾時</span><strong id="errors">0<small> / 0</small></strong></div></div></section>
+          <section class="light-card"><h2>節奏光影 <span>HARDWARE FEEDBACK</span></h2><div class="light-stage"><div class="light-orbit"><div id="led" class="led blue"></div></div><div><strong id="lightName">待機藍光</strong><p id="lightDescription">準備迎接你的挑戰</p></div></div><div class="hardware-controls"><button id="colorButton" class="outline-button">◉ 切換燈色 <small>BTN 3</small></button><button id="speedButton" class="outline-button">ϟ 切換速率 <small>BTN 4</small></button></div><p class="micro-copy" id="lightHint">練習模式為畫面模擬；接板後由實體 LED 呈現。</p></section>
+          <section class="tip-card"><span>↗</span><div><strong>快一點，多拿一點。</strong><p>綠燈完成得 7 分；維持準確率，找到最舒服的打字節奏。</p></div></section>
+        </aside>
+      </div>
+      <section class="bottom-strip"><div><span class="small-icon">01</span><div><strong>連接開發板</strong><p>ST-LINK USB · 115200 / 8N1</p></div></div><div><span class="small-icon">02</span><div><strong>跟著光影輸入</strong><p>綠、黃、紅，掌握每題節奏</p></div></div><div><span class="small-icon">03</span><div><strong>突破自己的紀錄</strong><p>10 題挑戰 · 每題最高 7 分</p></div></div><button class="text-button" id="technicalButton">技術勾選表 ↗</button></section>
+    </main>
+    <footer><span>TypeRush / 節奏英打測速挑戰機</span><span>POWERED BY STM32G474RE <span class="footer-square">▦</span></span></footer>
+  </div>
+  <div id="notice" role="status" class="notice" hidden></div>
+  <dialog id="settingsDialog" class="settings-dialog">
+    <div class="dialog-head"><div><p class="eyebrow">SERIAL CONNECTION</p><h2>連接你的開發板</h2></div><button class="icon-button close-dialog" aria-label="關閉設定">×</button></div>
+    <div class="dialog-content"><p class="dialog-description">連線參數須與 STM32 韌體一致。使用電腦版 Chrome／Edge，透過 ST-LINK 的 USB 虛擬序列埠連接。</p><div class="cable-diagram"><span>⌁ 電腦 USB</span><span class="cable-line"></span><span>▦ STM32</span></div>
+      <form id="serialForm"><div class="form-grid"><label>鮑率 Baud rate<input id="baudRate" type="number" min="300" max="3000000" step="1" value="115200" required></label><label>資料位元<select id="dataBits"><option value="8">8</option><option value="7">7</option></select></label><label>停止位元<select id="stopBits"><option value="1">1</option><option value="2">2</option></select></label><label>同位元檢查<select id="parity"><option value="none">無 None</option><option value="even">偶 Even</option><option value="odd">奇 Odd</option></select></label><label class="full-width">流量控制<select id="flowControl"><option value="none">無 None</option><option value="hardware">硬體 RTS / CTS</option></select></label></div>
+      <p class="setting-note">隨附韌體固定為 <strong>115200 · 8 · 1 · None · None</strong>。其他參數需同步修改板端；ST-LINK VCP 不接 RTS/CTS。</p><button id="connectButton" class="primary-button full-width" type="submit">⌁ 選擇序列埠並連接</button></form>
+      <div class="connection-info" id="connectionInfo" role="status">尚未連接開發板</div><div class="connection-options"><button class="outline-button" id="disconnectButton" disabled>中斷連線</button><button class="outline-button" id="practiceButton">使用練習模式</button></div>
+      <details class="console-details"><summary>UART 對話 <span id="logCount">0 則</span></summary><div class="console-toolbar"><button class="text-button" id="syncButton">同步狀態</button><button class="text-button" id="clearLogButton">清除對話</button></div><pre id="serialLog" aria-label="UART 收發紀錄"></pre></details>
+    </div>
+  </dialog>
+  <dialog id="helpDialog"><div class="dialog-head"><h2>找到你的節奏</h2><button class="icon-button close-dialog" aria-label="關閉操作說明">×</button></div><div class="dialog-content help-content"><p>每局 10 題。逐字輸入畫面上的英文單字，輸入最後一字即自動判分。錯字會記錄，但不會讓游標前進；不必退格或按 Enter。</p><ol><li><strong>開始 / BTN 1：</strong>開始新局，或從暫停繼續。</li><li><strong>暫停 / BTN 2：</strong>凍結倒數並讓燈號恆亮，再按繼續。</li><li><strong>燈色 / BTN 3：</strong>綠、黃、紅循環展示，不影響計分；換題恢復自動燈色。</li><li><strong>速率 / BTN 4：</strong>8 / 5 / 3 秒切換，呼吸週期同步加快；當題剩餘比例保留。</li></ol><p>剩餘時間 &gt;60% 得 7 分、30–60% 得 5 分、&lt;30% 得 3 分，逾時 0 分並換題。暫停時間不計入 WPM；正確率為正確字元 / 所有輸入字元。</p><p>接板模式由 STM32 控制遊戲；請先燒錄韌體，再用資料 USB 線連到板上 ST-LINK USB。練習模式只模擬畫面，不代表實體硬體驗證。</p><a href="../docs/HARDWARE.md" target="_blank" rel="noopener">接線與燒錄文件 ↗</a></div></dialog>
+  <dialog id="technicalDialog"><div class="dialog-head"><div><p class="eyebrow">COURSE CHECKLIST</p><h2>每一項技術，都有對應功能</h2></div><button class="icon-button close-dialog" aria-label="關閉技術勾選表">×</button></div><div class="dialog-content"><p class="dialog-description">這裡列出韌體實作，不代表已完成實體板驗收。完整暫存器與操作說明見專案文件。</p><div class="checklist" id="checklist"></div><a href="../docs/TECHNICAL.md" target="_blank" rel="noopener">查看完整程式位置與驗收步驟 ↗</a></div></dialog>
+  <dialog id="resultDialog" class="result-dialog"><div class="dialog-head"><span class="eyebrow">CHALLENGE COMPLETE</span><button class="icon-button close-dialog" aria-label="關閉成績">×</button></div><div class="result-content"><div class="result-icon">↗</div><h2>這一場，節奏由你掌握。</h2><p id="resultMode">練習模式成績</p><div class="result-score"><span id="resultScore">0</span><small> / 70 分</small></div><div class="result-details" id="resultDetails"></div><button class="primary-button" id="playAgainButton">再挑戰一次 ↗</button></div></dialog>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
