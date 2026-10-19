@@ -1,0 +1,15 @@
+在 Core/Src/stm32g4xx_it.c 加入以下宣告與中斷入口。
+若 CubeMX 已經產生同名函式，只確認內容相同，不要再新增第二個。
+保留原本 SysTick_Handler() 的 HAL_IncTick()。
+
+/* USER CODE BEGIN EV */
+extern UART_HandleTypeDef hlpuart1;
+/* USER CODE END EV */
+
+void LPUART1_IRQHandler(void)
+{
+    HAL_UART_IRQHandler(&hlpuart1);
+}
+
+這是 PPT BASIC 03 的標準 HAL 中斷入口。
+這次必須保留 HAL_UART_IRQHandler()，不使用先前 TypeRush_... 處理函式。

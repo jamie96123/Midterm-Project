@@ -1,56 +1,126 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1222">
-  <title>TypeRush — 節奏英打測速挑戰機</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab4｜STM32 三色燈控制</title>
+<style>
+:root{font-family:system-ui,"Microsoft JhengHei",sans-serif;color:#203047;background:#f3f6fa;line-height:1.6;color-scheme:light}*{box-sizing:border-box}body{margin:0}main{max-width:1020px;margin:44px auto;padding:0 24px}header{display:flex;align-items:center;justify-content:space-between;gap:20px}.eyebrow{color:#536f93;letter-spacing:2px;font-size:12px;margin:0}h1{font-size:30px;margin:5px 0}h2{font-size:17px;margin:0}p{color:#66768c;margin:6px 0}.badge{font-size:12px;white-space:nowrap;border:1px solid #ced9e7;border-radius:20px;padding:7px 13px;background:white}.connected{color:#127653;border-color:#9ed8c2;background:#ecfaf3}.panel{background:white;border:1px solid #dae3ee;border-radius:15px;padding:24px;margin-top:22px;box-shadow:0 4px 20px #20304703}.connect-row{display:flex;justify-content:space-between;align-items:center;gap:20px}.params{font-size:13px;color:#56708f;margin-top:6px}button{font:inherit;cursor:pointer;border:1px solid #cfd9e7;border-radius:8px;padding:9px 15px;background:white;color:#334b69}button:hover:not(:disabled){background:#f0f5fb}button:disabled{opacity:.4;cursor:not-allowed}button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #649eff;outline-offset:3px}.primary{background:#255ce3;color:white;border-color:#255ce3}.primary:hover:not(:disabled){background:#1749c3}.actions{display:flex;gap:9px;flex-wrap:wrap}.hint{font-size:12px;color:#7a899d;margin-top:13px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}.card{--color:#ec5262;--tint:#fff1f3;background:white;border:1px solid #dae3ee;border-radius:15px;padding:23px}.yellow{--color:#d99d11;--tint:#fff8e7}.green{--color:#169a68;--tint:#eaf9f1}.card-header{display:flex;align-items:center;justify-content:space-between}.pin{font:12px ui-monospace,monospace;background:#f0f4f9;color:#60758f;padding:3px 8px;border-radius:5px}.lamp-area{height:126px;display:flex;align-items:center;justify-content:center}.lamp{width:51px;height:51px;border-radius:50%;background:#d7dfe9;border:7px solid #edf1f6;box-shadow:0 0 0 1px #e3e9f0;transition:.2s}.card[data-state=on]{border-color:var(--color);background:linear-gradient(white,var(--tint))}.card[data-state=on] .lamp{background:var(--color);border-color:var(--tint);box-shadow:0 0 22px color-mix(in srgb,var(--color) 30%,transparent)}.lamp-status{text-align:center;font-size:12px;color:#7b899a;margin-bottom:17px}.card .actions{display:grid;grid-template-columns:1fr 1fr}.on-button{color:var(--color);background:var(--tint);border-color:color-mix(in srgb,var(--color) 25%,white)}.section-head{display:flex;justify-content:space-between;align-items:center;gap:15px}.count{font-size:12px;color:#657c96}code{font:12px ui-monospace,monospace;background:#edf2f8;padding:2px 5px;border-radius:4px}.send-row{display:flex;gap:10px;margin-top:17px}input,textarea{font:14px ui-monospace,monospace;border:1px solid #ced9e7;border-radius:8px;padding:11px;color:#243a54;background:white}input{flex:1;min-width:0}textarea{display:block;width:100%;min-height:116px;resize:vertical;margin:12px 0}.console{background:#132238;color:#bdd8ed;min-height:140px;max-height:260px;overflow:auto;border-radius:9px;padding:15px;font:12px/1.8 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:16px 0 0}.console:empty:before{content:"尚無資料。連線後按板上 Reset，可查看 HELLO WORLD。";color:#7d99b6}details{margin-top:17px;border-top:1px solid #e4eaf2;padding-top:15px}summary{cursor:pointer;color:#5c7290;font-size:13px}.guide{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;margin-top:18px}.notice{color:#b14831;font-size:13px;min-height:21px;margin-top:12px}.footer{font-size:11px;text-align:center;color:#8391a3;margin:26px 0}.link{font-size:12px;color:#255ce3;text-decoration:none}.subtle{font-size:12px}.log-actions{display:flex;gap:10px;align-items:center}@media(max-width:650px){main{margin-top:25px;padding:0 17px}h1{font-size:24px}header{align-items:flex-start}.badge{font-size:10px;padding:6px 9px}.connect-row{align-items:flex-start;flex-direction:column;gap:15px}.cards{grid-template-columns:1fr;gap:12px}.card{display:grid;grid-template-columns:1fr 1fr;column-gap:18px;padding:18px}.card-header{grid-column:1/-1}.lamp-area{height:80px;grid-row:2/4}.lamp-status{align-self:end;margin:9px 0;font-size:11px}.card .actions{align-self:start}.panel{padding:19px}.send-row button{padding:9px 11px}.guide{gap:8px}.section-head{align-items:flex-start}.log-actions{gap:6px}.log-actions button{font-size:11px;padding:6px 8px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-  <div class="shell">
-    <header class="topbar">
-      <a class="brand" href="./" aria-label="TypeRush 首頁"><span class="brand-icon">T<span>↗</span></span><strong>TypeRush<span class="brand-dot">.</span></strong><span class="tag">STM32 EDITION</span></a>
-      <div class="top-actions"><span class="connection-badge" id="connectionBadge"><i></i>練習模式</span><button class="icon-button" id="helpButton" aria-label="操作說明">?</button></div>
-    </header>
-    <main>
-      <div class="intro"><div><p class="eyebrow">FIND YOUR FLOW. FEEL THE RHYTHM.</p><h1>讓每一次敲擊，都<span>踩在節奏上。</span></h1><p class="subtitle">專注眼前的單字，跟上三色光影，挑戰你的英打極限。</p></div><button class="outline-button" id="settingsButton"><span aria-hidden="true">⚙</span> 開發板連線設定</button></div>
-      <div class="workspace">
-        <section class="arena" aria-label="打字遊戲">
-          <div class="arena-head"><div class="mode-label"><span class="live-dot"></span><span id="modeLabel">自由練習</span><span class="mode-note" id="modeNote">無需連接開發板</span></div><span class="round-label">ROUND <strong id="round">01</strong><span> / 10</span></span></div>
-          <div class="arena-body" id="arenaBody" data-color="blue">
-            <div class="status-line"><span id="stateLabel">準備好，進入心流</span><span class="rate-chip" id="rateLabel">舒適 · 8 秒</span></div>
-            <div class="time-row"><span>本題剩餘時間</span><strong id="time">8.00<span>s</span></strong></div>
-            <div class="time-track"><div id="timeBar"></div></div>
-            <div class="word-area"><p class="word-caption" id="wordCaption">按下開始，點亮你的第一個單字</p><div class="target-word" id="targetWord" aria-label="目標單字">ready<span class="caret">_</span></div><p class="feedback" id="feedback" role="status">10 個單字，一場屬於你的節奏挑戰。</p></div>
-            <label class="typing-label" for="typingInput">英文字母輸入</label><div class="typing-box"><span aria-hidden="true">⌨</span><input id="typingInput" type="text" placeholder="開始後，在這裡輸入單字…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" disabled aria-describedby="inputHint"><span class="input-dot"></span></div>
-            <p class="input-hint" id="inputHint">逐字比對・錯字不前進・不用按 Enter</p>
-            <div class="game-controls"><button class="primary-button" id="startButton"><span aria-hidden="true">▶</span> 開始挑戰</button><button class="outline-button" id="pauseButton" disabled>Ⅱ 暫停</button><button class="text-button" id="resetButton">↻ 重設</button></div>
-          </div>
-          <div class="score-legend"><span><i class="dot green"></i><strong>+7</strong> 剩餘 &gt;60%</span><span><i class="dot yellow"></i><strong>+5</strong> 剩餘 30–60%</span><span><i class="dot red"></i><strong>+3</strong> 剩餘 &lt;30%</span></div>
-        </section>
-        <aside class="dashboard" aria-label="即時戰況">
-          <section class="stats-card"><h2>即時戰況 <span>LIVE STATS</span></h2><div class="big-score"><span id="score">0</span><small>總分 / 70</small></div><div class="stat-grid"><div><span>打字速度</span><strong id="wpm">0<small> WPM</small></strong></div><div><span>正確率</span><strong id="accuracy">—<small> %</small></strong></div><div><span>完成單字</span><strong id="correct">0<small> / 10</small></strong></div><div><span>錯誤 / 逾時</span><strong id="errors">0<small> / 0</small></strong></div></div></section>
-          <section class="light-card"><h2>節奏光影 <span>HARDWARE FEEDBACK</span></h2><div class="light-stage"><div class="light-orbit"><div id="led" class="led blue"></div></div><div><strong id="lightName">待機藍光</strong><p id="lightDescription">準備迎接你的挑戰</p></div></div><div class="hardware-controls"><button id="colorButton" class="outline-button">◉ 切換燈色 <small>BTN 3</small></button><button id="speedButton" class="outline-button">ϟ 切換速率 <small>BTN 4</small></button></div><p class="micro-copy" id="lightHint">練習模式為畫面模擬；接板後由實體 LED 呈現。</p></section>
-          <section class="tip-card"><span>↗</span><div><strong>快一點，多拿一點。</strong><p>綠燈完成得 7 分；維持準確率，找到最舒服的打字節奏。</p></div></section>
-        </aside>
-      </div>
-      <section class="bottom-strip"><div><span class="small-icon">01</span><div><strong>連接開發板</strong><p>ST-LINK USB · 115200 / 8N1</p></div></div><div><span class="small-icon">02</span><div><strong>跟著光影輸入</strong><p>綠、黃、紅，掌握每題節奏</p></div></div><div><span class="small-icon">03</span><div><strong>突破自己的紀錄</strong><p>10 題挑戰 · 每題最高 7 分</p></div></div><button class="text-button" id="technicalButton">技術勾選表 ↗</button></section>
-    </main>
-    <footer><span>TypeRush / 節奏英打測速挑戰機</span><span>POWERED BY STM32G474RE <span class="footer-square">▦</span></span></footer>
-  </div>
-  <div id="notice" role="status" class="notice" hidden></div>
-  <dialog id="settingsDialog" class="settings-dialog">
-    <div class="dialog-head"><div><p class="eyebrow">SERIAL CONNECTION</p><h2>連接你的開發板</h2></div><button class="icon-button close-dialog" aria-label="關閉設定">×</button></div>
-    <div class="dialog-content"><p class="dialog-description">連線參數須與 STM32 韌體一致。使用電腦版 Chrome／Edge，透過 ST-LINK 的 USB 虛擬序列埠連接。</p><div class="cable-diagram"><span>⌁ 電腦 USB</span><span class="cable-line"></span><span>▦ STM32</span></div>
-      <form id="serialForm"><div class="form-grid"><label>鮑率 Baud rate<input id="baudRate" type="number" min="300" max="3000000" step="1" value="115200" required></label><label>資料位元<select id="dataBits"><option value="8">8</option><option value="7">7</option></select></label><label>停止位元<select id="stopBits"><option value="1">1</option><option value="2">2</option></select></label><label>同位元檢查<select id="parity"><option value="none">無 None</option><option value="even">偶 Even</option><option value="odd">奇 Odd</option></select></label><label class="full-width">流量控制<select id="flowControl"><option value="none">無 None</option><option value="hardware">硬體 RTS / CTS</option></select></label></div>
-      <p class="setting-note">隨附韌體固定為 <strong>115200 · 8 · 1 · None · None</strong>。其他參數需同步修改板端；ST-LINK VCP 不接 RTS/CTS。</p><button id="connectButton" class="primary-button full-width" type="submit">⌁ 選擇序列埠並連接</button></form>
-      <div class="connection-info" id="connectionInfo" role="status">尚未連接開發板</div><div class="connection-options"><button class="outline-button" id="disconnectButton" disabled>中斷連線</button><button class="outline-button" id="practiceButton">使用練習模式</button></div>
-      <details class="console-details"><summary>UART 對話 <span id="logCount">0 則</span></summary><div class="console-toolbar"><button class="text-button" id="syncButton">同步狀態</button><button class="text-button" id="clearLogButton">清除對話</button></div><pre id="serialLog" aria-label="UART 收發紀錄"></pre></details>
-    </div>
-  </dialog>
-  <dialog id="helpDialog"><div class="dialog-head"><h2>找到你的節奏</h2><button class="icon-button close-dialog" aria-label="關閉操作說明">×</button></div><div class="dialog-content help-content"><p>每局 10 題。逐字輸入畫面上的英文單字，輸入最後一字即自動判分。錯字會記錄，但不會讓游標前進；不必退格或按 Enter。</p><ol><li><strong>開始 / BTN 1：</strong>開始新局，或從暫停繼續。</li><li><strong>暫停 / BTN 2：</strong>凍結倒數並讓燈號恆亮，再按繼續。</li><li><strong>燈色 / BTN 3：</strong>綠、黃、紅循環展示，不影響計分；換題恢復自動燈色。</li><li><strong>速率 / BTN 4：</strong>8 / 5 / 3 秒切換，呼吸週期同步加快；當題剩餘比例保留。</li></ol><p>剩餘時間 &gt;60% 得 7 分、30–60% 得 5 分、&lt;30% 得 3 分，逾時 0 分並換題。暫停時間不計入 WPM；正確率為正確字元 / 所有輸入字元。</p><p>接板模式由 STM32 控制遊戲；請先燒錄韌體，再用資料 USB 線連到板上 ST-LINK USB。練習模式只模擬畫面，不代表實體硬體驗證。</p><a href="../docs/HARDWARE.md" target="_blank" rel="noopener">接線與燒錄文件 ↗</a></div></dialog>
-  <dialog id="technicalDialog"><div class="dialog-head"><div><p class="eyebrow">COURSE CHECKLIST</p><h2>每一項技術，都有對應功能</h2></div><button class="icon-button close-dialog" aria-label="關閉技術勾選表">×</button></div><div class="dialog-content"><p class="dialog-description">這裡列出韌體實作，不代表已完成實體板驗收。完整暫存器與操作說明見專案文件。</p><div class="checklist" id="checklist"></div><a href="../docs/TECHNICAL.md" target="_blank" rel="noopener">查看完整程式位置與驗收步驟 ↗</a></div></dialog>
-  <dialog id="resultDialog" class="result-dialog"><div class="dialog-head"><span class="eyebrow">CHALLENGE COMPLETE</span><button class="icon-button close-dialog" aria-label="關閉成績">×</button></div><div class="result-content"><div class="result-icon">↗</div><h2>這一場，節奏由你掌握。</h2><p id="resultMode">練習模式成績</p><div class="result-score"><span id="resultScore">0</span><small> / 70 分</small></div><div class="result-details" id="resultDetails"></div><button class="primary-button" id="playAgainButton">再挑戰一次 ↗</button></div></dialog>
-  <script type="module" src="app.js"></script>
+<main>
+<header><div><p class="eyebrow">LAB 4 · LPUART1</p><h1>STM32 三色燈控制</h1><p class="subtle">用課堂的文字指令，控制真實的紅、黃、綠燈。</p></div><span class="badge" id="connectionStatus" role="status">未連線</span></header>
+<section class="panel"><div class="connect-row"><div><h2>01　連接開發板</h2><div class="params">ST-LINK USB · 115200 / 8N1 · 無流量控制</div></div><div class="actions"><button id="connect" class="primary">選擇序列埠並連接</button><button id="disconnect" disabled>中斷連線</button></div></div><p class="hint">使用電腦版 Chrome／Edge，選擇 STLink Virtual COM Port。此頁不使用先前遊戲的 KEY 或 JSON 協定。</p><p class="notice" id="notice" role="status"></p></section>
+<div class="cards" aria-label="三色燈開關">
+<section class="card red" data-color="RED" data-state="unknown"><div class="card-header"><h2>紅燈</h2><span class="pin">PC3</span></div><div class="lamp-area"><div class="lamp" aria-hidden="true"></div></div><div class="lamp-status">尚未確認燈態</div><div class="actions"><button data-command="RED ON" class="on-button" disabled>開啟 ON</button><button data-command="RED OFF" disabled>關閉 OFF</button></div></section>
+<section class="card yellow" data-color="YELLOW" data-state="unknown"><div class="card-header"><h2>黃燈</h2><span class="pin">PC4</span></div><div class="lamp-area"><div class="lamp" aria-hidden="true"></div></div><div class="lamp-status">尚未確認燈態</div><div class="actions"><button data-command="YELLOW ON" class="on-button" disabled>開啟 ON</button><button data-command="YELLOW OFF" disabled>關閉 OFF</button></div></section>
+<section class="card green" data-color="GREEN" data-state="unknown"><div class="card-header"><h2>綠燈</h2><span class="pin">PC6</span></div><div class="lamp-area"><div class="lamp" aria-hidden="true"></div></div><div class="lamp-status">尚未確認燈態</div><div class="actions"><button data-command="GREEN ON" class="on-button" disabled>開啟 ON</button><button data-command="GREEN OFF" disabled>關閉 OFF</button></div></section>
+</div>
+<section class="panel"><div class="section-head"><h2>02　傳送文字指令</h2><button id="allOff" disabled>三燈全部關閉</button></div><p class="hint">指令區分大小寫；送出時自動加換行 LF。三顆燈各自控制，可同時亮起。</p><form id="commandForm" class="send-row"><input id="command" placeholder="例如：RED ON" value="RED ON" aria-label="文字指令" maxlength="31" disabled><button id="send" class="primary" disabled>傳送</button></form><details><summary>課堂測試：一次傳送多條指令</summary><textarea id="batch" aria-label="多行指令" disabled>GREEN ON
+RED ON
+GREEN OFF
+RED OFF</textarea><button id="sendBatch" disabled>傳送整批指令</button><p class="hint">每次最多 240 bytes。韌體使用 256 格 ring buffer（可存 255 bytes），主迴圈每 200 ms 處理累積資料；兩批請至少間隔 300 ms。</p></details></section>
+<section class="panel"><div class="section-head"><h2>03　UART 對話</h2><div class="log-actions"><span class="count" id="ackCount">已確認 0 條</span><button id="clearLog">清除紀錄</button></div></div><pre id="log" class="console" aria-label="UART 收發紀錄"></pre><div class="guide"><span><code>TX</code> 網頁已送出</span><span><code>RX OK …</code> 板端已執行</span><span><code>HELLO WORLD</code> 板端開機</span></div><p class="hint">畫面燈態只依板端 OK 回覆更新，不會按下按鈕就假裝已亮燈。實體 LED 是否接對仍需目視確認。</p></section>
+<p class="footer">PPT BASIC 01 + 02 + 03 · HAL_UART_Receive_IT → RingPush → RingPop → ExecuteCommand<br><a class="link" href="https://raw.githubusercontent.com/jamie96123/Midterm-Project/refs/heads/gh-pages/downloads/TypeRush-Lab4-LED.zip">下載本版程式與設定說明</a></p>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let port=null,reader=null,writer=null,readTask=null,closing=false,connecting=false,acks=0;
+let lines=[],frame='',discard=false;
+function notice(message){$('notice').textContent=message;}
+function log(type,message){
+ lines.push(`${new Date().toLocaleTimeString('zh-TW',{hour12:false})}  ${type}  ${message}`);
+ if(lines.length>100)lines.shift();
+ $('log').textContent=lines.join('\n');$('log').scrollTop=$('log').scrollHeight;
+}
+function controls(){
+ const open=!!port&&!closing;
+ $('connect').disabled=open||connecting||closing;$('disconnect').disabled=!open;
+ for(const el of document.querySelectorAll('[data-command],#allOff,#command,#send,#batch,#sendBatch'))el.disabled=!open;
+}
+function lamp(color,value){
+ const card=document.querySelector(`[data-color="${color}"]`);
+ card.dataset.state=value;
+ card.querySelector('.lamp-status').textContent=value==='on'?'已確認開啟':value==='off'?'已確認關閉':'尚未確認燈態';
+}
+function unknown(){for(const c of ['RED','YELLOW','GREEN'])lamp(c,'unknown');}
+function received(line){
+ log('RX',line);
+ const match=/^OK (RED|YELLOW|GREEN) (ON|OFF)$/.exec(line);
+ if(match){
+  lamp(match[1],match[2]==='ON'?'on':'off');$('ackCount').textContent=`已確認 ${++acks} 條`;
+  $('connectionStatus').textContent='STM32 已回應';notice('');
+ }else if(line==='HELLO WORLD'){
+  for(const c of ['RED','YELLOW','GREEN'])lamp(c,'off');
+  $('connectionStatus').textContent='STM32 已回應';notice('已收到開機字串，可以開始控制燈號。');
+ }else if(line.startsWith('ERR'))notice('板端不認得這條指令，請使用 RED／YELLOW／GREEN 加 ON／OFF。');
+ else if(line.startsWith('{'))notice('收到舊版 JSON 訊息，請先燒錄本次 Lab4 文字指令韌體。');
+}
+function feed(text){
+ for(const c of text){
+  if(c==='\n'){
+   if(!discard&&frame.trim())received(frame.trim());
+   frame='';discard=false;
+  }else if(!discard){
+   if(frame.length>=512){frame='';discard=true;notice('收到過長資料行，已略過。');}
+   else frame+=c;
+  }
+ }
+}
+async function readLoop(){
+ const decoder=new TextDecoder();
+ try{
+  reader=port.readable.getReader();
+  while(!closing){const {value,done}=await reader.read();if(done)break;feed(decoder.decode(value,{stream:true}));}
+ }catch(error){if(!closing){log('ERROR',error.message);notice('連線已中斷，請確認 USB 並重新連接。');}}
+ finally{reader?.releaseLock();reader=null;if(!closing)queueMicrotask(disconnect);}
+}
+async function disconnect(){
+ if(closing||!port)return;
+ closing=true;controls();
+ try{await reader?.cancel();}catch{}
+ try{await readTask;}catch{}
+ try{await writer?.close();}catch{}
+ try{writer?.releaseLock();}catch{}
+ writer=null;
+ try{await port.close();}catch{}
+ port=null;readTask=null;closing=false;frame='';discard=false;
+ unknown();$('connectionStatus').textContent='未連線';$('connectionStatus').className='badge';
+ log('INFO','序列埠已關閉');controls();
+}
+async function send(text){
+ if(!writer||closing)return;
+ text=text.replace(/\r\n?/g,'\n').trim();if(!text)return;
+ if(!/^[\x20-\x7e\n]+$/.test(text)){notice('請使用英文 ASCII 指令。');return;}
+ const bytes=new TextEncoder().encode(text+'\n');
+ if(bytes.length>240){notice('請將這批資料縮短至 240 bytes 以內。');return;}
+ try{await writer.write(bytes);log('TX',text.replace(/\n/g,' ⏎ '));notice('已送出，等待板端 OK 回覆；主迴圈每 200 ms 處理一次。');}
+ catch(error){notice(`傳送失敗：${error.message}`);void disconnect();}
+}
+$('connect').addEventListener('click',async()=>{
+ if(connecting||port)return;
+ if(!navigator.serial){notice('請使用支援 Web Serial 的電腦版 Chrome／Edge，並由 HTTPS 或 localhost 開啟。');return;}
+ connecting=true;controls();let selected;
+ try{
+  selected=await navigator.serial.requestPort();
+  await selected.open({baudRate:115200,dataBits:8,stopBits:1,parity:'none',flowControl:'none'});
+  const writable=selected.writable.getWriter();
+  port=selected;writer=writable;closing=false;frame='';discard=false;acks=0;unknown();
+  $('ackCount').textContent='已確認 0 條';$('connectionStatus').textContent='序列埠已開啟';$('connectionStatus').className='badge connected';
+  notice('請按開啟／關閉按鈕。連線後按板上 Reset，可收到 HELLO WORLD。');
+  log('INFO','開啟 LPUART1 VCP：115200 / 8N1');readTask=readLoop();
+ }catch(error){
+  notice(error.name==='NotFoundError'?'已取消選擇序列埠。':`無法連接：${error.message}`);
+  if(selected&&!port){try{await selected.close();}catch{}}
+ }finally{connecting=false;controls();}
+});
+$('disconnect').addEventListener('click',disconnect);
+for(const button of document.querySelectorAll('[data-command]'))button.addEventListener('click',()=>send(button.dataset.command));
+$('allOff').addEventListener('click',()=>send('RED OFF\nYELLOW OFF\nGREEN OFF'));
+$('commandForm').addEventListener('submit',event=>{event.preventDefault();void send($('command').value);});
+$('sendBatch').addEventListener('click',()=>send($('batch').value));
+$('clearLog').addEventListener('click',()=>{lines=[];$('log').textContent='';});
+controls();
+</script>
 </body>
 </html>
