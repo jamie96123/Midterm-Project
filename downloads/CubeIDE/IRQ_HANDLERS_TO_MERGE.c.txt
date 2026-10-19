@@ -1,0 +1,49 @@
+/* Merge these four functions into Core/Src/stm32g4xx_it.c.
+ * Do NOT compile this text file or add duplicate IRQ functions in main.c.
+ * Existing faults/SysTick/other IRQs must be preserved.
+ * CubeMX: enable Generate IRQ handler, disable Call HAL handler for these four IRQs.
+ */
+/* USER CODE BEGIN Includes */
+#include "typerush_irq.h"
+/* USER CODE END Includes */
+
+void TIM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+  TypeRush_TIM2_IRQHandler();
+  /* USER CODE END TIM2_IRQn 0 */
+  /* No HAL_TIM_IRQHandler / HAL_UART_IRQHandler / HAL_GPIO_EXTI_IRQHandler here. */
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+  /* USER CODE END TIM2_IRQn 1 */
+}
+
+void USART2_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART2_IRQn 0 */
+  TypeRush_USART2_IRQHandler();
+  /* USER CODE END USART2_IRQn 0 */
+  /* No HAL_TIM_IRQHandler / HAL_UART_IRQHandler / HAL_GPIO_EXTI_IRQHandler here. */
+  /* USER CODE BEGIN USART2_IRQn 1 */
+  /* USER CODE END USART2_IRQn 1 */
+}
+
+void EXTI4_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI4_IRQn 0 */
+  TypeRush_EXTI4_IRQHandler();
+  /* USER CODE END EXTI4_IRQn 0 */
+  /* No HAL_TIM_IRQHandler / HAL_UART_IRQHandler / HAL_GPIO_EXTI_IRQHandler here. */
+  /* USER CODE BEGIN EXTI4_IRQn 1 */
+  /* USER CODE END EXTI4_IRQn 1 */
+}
+
+void EXTI9_5_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI9_5_IRQn 0 */
+  TypeRush_EXTI9_5_IRQHandler();
+  /* USER CODE END EXTI9_5_IRQn 0 */
+  /* No HAL_TIM_IRQHandler / HAL_UART_IRQHandler / HAL_GPIO_EXTI_IRQHandler here. */
+  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+  /* USER CODE END EXTI9_5_IRQn 1 */
+}
+
